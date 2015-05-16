@@ -1,3 +1,7 @@
+.klepsydra-form{
+  text-align: center;
+}
+
 .taskbox-field{
   text-align: center;
 }
@@ -6,7 +10,7 @@
   display: inline-block;
   text-align: center;
   font-weight: bold;
-  height: 25vh;
+  height: 30vh;
   width: 30%;
   background-color:#cc0000;
   border-radius: 10px;

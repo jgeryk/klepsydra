@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Pomodoro</title>
+      <title>Klepsydra</title>
       <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script type="text/javascript" src="js/jQueryfunctions.js"></script>
     </head>
 
     <body>
-      <form>
-        Task: <input type='text' name='task'>
-        Minutes: <input type='text' name='mins'>
-        Break Time (Optional): <input type='text' name='break'>
-        <input type="submit" value="Add Task">
-      </form>
-      <div class='taskbox-field'>
-        <div class='taskbox'>
-          tomato
-        </div>
-        <div class='taskbox'>
-          tomato 2
-        </div>
-        <div class='taskbox'>
-          tomato 3
-        </div>
-        <div class='taskbox'>
-          tomato 3
-        </div>
+      <div class="klepsydra-form">
+        <form>
+          Task: <input type='text' name='task'>
+          Minutes: <input type='number' name='mins'>
+          Break Time (Optional): <input type='number' name='break'>
+          <input type="button" value="Add Task" id='newTask'>
+        </form>
       </div>
+
+      <div class='taskbox-field'>
+        <!-- <div class='taskbox'>
+          hey
+        </div> -->
+      </div>
+      <p>
+        Fucking jQuery
+      </p>
+      <button> Fadeout</button>
     </body>
 
 </html>
