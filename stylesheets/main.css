@@ -21,3 +21,7 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+.taskbox:hover{
+  background-color:#66CCFF;
+}

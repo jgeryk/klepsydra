@@ -1,12 +1,14 @@
-requirejs(["jquery.timer"], function(util) {
-  alert('timer script loaded');
+requirejs(["jquery.countdown.min"], function(util) {
+  //alert('timer script loaded');
 });
 
-//var inputTime;
-
+var task = {
+  name:
+}
+var tasks = 0,
+    inputTime;
 
 $(document).ready(function() {
-  var tasks = 0;
   $('#newTask').click(function() {
     var errMsg = '';
     //Grab the values from the form
@@ -28,53 +30,29 @@ $(document).ready(function() {
       $('.taskbox-field').prepend('<p id="error-msg">' + errMsg + "</p>");
     } else {
       tasks = tasks+1;
-      inputTime = mins*6000;
-      // var timer = $.timer(function() {
-      //   alert('okay');
-      // });
-      // timer.set({ time : 5000, autostart : true });
-      $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><p id="countdown">' + mins +':00' + '</p></div>');
-      timeHandler(inputTime);
+      inputTime = mins*60000;
+      if(tasks>1){
+        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock">'+ mins +' Minutes </span></div>');
+      }
+      else {
+        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock"></span></div>');
+        timeHandler();
+      }
     }
   });
 
 });
 
-function timeHandler(inputTime){
-  var stopwatch = new (function(){
-    var $countdown,
-        incrementTime = 1000,
-        currentTime = inputTime,
-        updateTimer = function() {
-              $countdown.html(formatTime(currentTime));
-              if (currentTime == 0) {
-                  stopwatch.Timer.stop();
-                  timerComplete();
-                  stopwatch.resetCountdown();
-                  return;
-              }
-              currentTime -= incrementTime / 10;
-              if (currentTime < 0) currentTime = 0;
-          },
-          timerComplete = function() {
-              alert('Countdown timer complete!');
-          },
-          init = function() {
-              $countdown = $('#countdown');
-              stopwatch.Timer = $.timer(updateTimer, incrementTime, true);
-          };
-      $(init);
+
+
+function timeHandler(){
+  var countdownTime = new Date().getTime() + inputTime;
+  $('#clock').countdown(countdownTime, function(event) {
+    if(event.offset.seconds === 0 && event.offset.minutes=== 0 && event.offset.hours === 0){
+      $('.taskbox').first().fadeOut('slow');
+    }
+    $(this).html(event.strftime('%H:%M:%S'));
   });
-}
-// Common functions
-function pad(number, length) {
-    var str = '' + number;
-    while (str.length < length) {str = '0' + str;}
-    return str;
-}
-function formatTime(time) {
-    var min = parseInt(time / 6000),
-        sec = parseInt(time / 100) - (min * 60),
-        hundredths = pad(time - (sec * 100) - (min * 6000), 2);
-    return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
+  alert('piss');
+  return;
 }
