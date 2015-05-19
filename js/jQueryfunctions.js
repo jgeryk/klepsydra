@@ -2,11 +2,13 @@ requirejs(["jquery.countdown.min"], function(util) {
   //alert('timer script loaded');
 });
 
-var task = {
-  name:
+function task(cdt, bt){
+  this.cdTime = cdt;
+  this.breakTime = bt;
 }
-var tasks = 0,
-    inputTime;
+
+var taskArray = [];
+var tasks = 0;
 
 $(document).ready(function() {
   $('#newTask').click(function() {
@@ -31,12 +33,15 @@ $(document).ready(function() {
     } else {
       tasks = tasks+1;
       inputTime = mins*60000;
+      var newTask = new task(inputTime, breakMins);
+      taskArray.push(newTask);
       if(tasks>1){
         $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock">'+ mins +' Minutes </span></div>');
       }
       else {
         $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock"></span></div>');
-        timeHandler();
+        var currentTask = taskArray.shift();
+        timeHandler(currentTask);
       }
     }
   });
@@ -45,14 +50,20 @@ $(document).ready(function() {
 
 
 
-function timeHandler(){
-  var countdownTime = new Date().getTime() + inputTime;
+function timeHandler(currtask){
+  var countdownTime = new Date().getTime() + currtask.cdTime;
   $('#clock').countdown(countdownTime, function(event) {
     if(event.offset.seconds === 0 && event.offset.minutes=== 0 && event.offset.hours === 0){
-      $('.taskbox').first().fadeOut('slow');
+      countdownFinished();
     }
     $(this).html(event.strftime('%H:%M:%S'));
   });
-  alert('piss');
   return;
+}
+
+function countdownFinished(){
+  $('.taskbox').first().fadeOut('slow');
+  if(taskArray.size>0){
+
+  }
 }
