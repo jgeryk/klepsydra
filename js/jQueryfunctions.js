@@ -1,8 +1,9 @@
-requirejs(["jquery.countdown.min"], function(util) {
-  //alert('timer script loaded');
+requirejs(["jquery.tinytimer.min"], function(util) {
+  //  alert('timer script loaded');
 });
 
-function task(cdt, bt){
+function task(tid, cdt, bt){
+  this.taskid = tid;
   this.cdTime = cdt;
   this.breakTime = bt;
 }
@@ -18,7 +19,7 @@ $(document).ready(function() {
     var mins = $('input[name=mins]').val();
     var breakMins = $('input[name=break]').val();
     //Error checking the values
-    if(tasks===9){
+    if(taskArray.length===10){
       errMsg = 'You have reached the maximum number of tasks. Get to work!';
     } else if(taskName === '' || taskName === undefined){
       errMsg = 'Please enter a task name.';
@@ -33,15 +34,14 @@ $(document).ready(function() {
     } else {
       tasks = tasks+1;
       inputTime = mins*60000;
-      var newTask = new task(inputTime, breakMins);
+      var newTask = new task(tasks, inputTime, breakMins);
       taskArray.push(newTask);
-      if(tasks>1){
-        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock">'+ mins +' Minutes </span></div>');
+      if(taskArray.length>1){
+        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock' + tasks +'">'+ mins +' Minutes </span></div>');
       }
       else {
-        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock"></span></div>');
-        var currentTask = taskArray.shift();
-        timeHandler(currentTask);
+        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock' + tasks + '"></span></div>');
+        timeHandler(taskArray[0]);
       }
     }
   });
@@ -51,19 +51,25 @@ $(document).ready(function() {
 
 
 function timeHandler(currtask){
-  var countdownTime = new Date().getTime() + currtask.cdTime;
-  $('#clock').countdown(countdownTime, function(event) {
-    if(event.offset.seconds === 0 && event.offset.minutes=== 0 && event.offset.hours === 0){
-      countdownFinished();
-    }
-    $(this).html(event.strftime('%H:%M:%S'));
-  });
+  var t = Date.now() + currtask.cdTime;
+  $('#clock' + currtask.taskid).tinyTimer({ to: t,
+                          onEnd: function(){
+                            countdownFinished(currtask);
+                          }});
+  // $('.clock' + currtask.taskid).countdown(countdownTime, function(event) {
+  //   if (event.offset.seconds === 0 && event.offset.minutes === 0 && event.offset.hours === 0){
+  //     countdownFinished();
+  //   }
+  //   $(this).html(event.strftime('%H:%M:%S'));
+  // });
   return;
 }
 
-function countdownFinished(){
-  $('.taskbox').first().fadeOut('slow');
-  if(taskArray.size>0){
-
+function countdownFinished(task){
+  taskArray.shift();
+  $('.taskbox-field').first().fadeOut('slow');
+  // alert(taskArray.length);
+  if(taskArray.length>0){
+    timeHandler(taskArray[0]);
   }
 }
