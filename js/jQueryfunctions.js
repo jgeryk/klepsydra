@@ -66,9 +66,10 @@ function timeHandler(currtask){
 }
 
 function countdownFinished(task){
+  var fadeOutMs = 3000;
   taskArray.shift();
-  $('.taskbox-field').first().fadeOut('slow');
-  // alert(taskArray.length);
+  $('.taskbox:first-child').fadeOut(fadeOutMs);
+  setTimeout(function () {$('.taskbox:first-child').remove();}, fadeOutMs);
   if(taskArray.length>0){
     timeHandler(taskArray[0]);
   }
