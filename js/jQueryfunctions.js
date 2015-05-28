@@ -19,7 +19,7 @@ $(document).ready(function() {
     var mins = $('input[name=mins]').val();
     var breakMins = $('input[name=break]').val();
     //Error checking the values
-    if(taskArray.length===10){
+    if(taskArray.length===9){
       errMsg = 'You have reached the maximum number of tasks. Get to work!';
     } else if(taskName === '' || taskName === undefined){
       errMsg = 'Please enter a task name.';
@@ -54,7 +54,12 @@ function timeHandler(currtask){
   var t = Date.now() + currtask.cdTime;
   $('#clock' + currtask.taskid).tinyTimer({ to: t,
                           onEnd: function(){
-                            countdownFinished(currtask);
+                            if(currtask.breakTime !== undefined && currtask.breakTime>0){
+                              document.getElementById('bell').play();
+                              breakHandler(currtask);
+                            } else {
+                              countdownFinished(currtask);
+                            }
                           }});
   // $('.clock' + currtask.taskid).countdown(countdownTime, function(event) {
   //   if (event.offset.seconds === 0 && event.offset.minutes === 0 && event.offset.hours === 0){
@@ -66,11 +71,24 @@ function timeHandler(currtask){
 }
 
 function countdownFinished(task){
-  var fadeOutMs = 3000;
+  var fadeOutMs = 2500;
   taskArray.shift();
+  document.getElementById('bell').play();
   $('.taskbox:first-child').fadeOut(fadeOutMs);
   setTimeout(function () {$('.taskbox:first-child').remove();}, fadeOutMs);
   if(taskArray.length>0){
     timeHandler(taskArray[0]);
   }
+}
+
+function breakHandler(task){
+  $('.taskbox-field').prepend('<p id="break-msg"> Breaking for <span id="breakclock"></span></p>');
+  var b = Date.now() + (task.breakTime*60000);
+  $('#breakclock').tinyTimer({ to: b,
+                          onEnd: function(){
+                            $('#break-msg').fadeOut(2000);
+                            $('#break-msg').remove();
+                            countdownFinished(task);
+                          }});
+
 }
