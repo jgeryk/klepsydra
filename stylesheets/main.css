@@ -1,5 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+* {
+    font-family: 'Lato', sans-serif;
+}
+
 .klepsydra-form{
   text-align: center;
+  font-size: 150%;
+}
+
+.klepsydra-form-input{
+  border-radius: 6px;
+  height: 3vh;
+  font-size: 70%;
 }
 
 .taskbox-field{
@@ -12,16 +25,35 @@
   font-weight: bold;
   height: 30vh;
   width: 30%;
-  background-color:#cc0000;
+  background-color:#33D6FF;
   border-radius: 10px;
   margin-top: 1vh;
-  margin-left: 3vh;
-  margin-right: 3vh;
+  margin-left: 0.5vh;
+  margin-right: 0.5vh;
   color: #ffffff;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .taskbox:hover{
-  background-color:#66CCFF;
+  background-color:#70E2FF;
+}
+
+.taskname{
+  font-size: 225%;
+}
+
+.timer{
+  font-size: 400%;
+}
+
+#task-input{
+  width: 50vh;
+}
+
+#break-msg{
+  font-size: 200%;
+}
+
+#footer{
+  text-align: center;
+  font-size: 80%;
 }

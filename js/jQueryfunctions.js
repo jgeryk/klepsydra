@@ -8,12 +8,12 @@ function task(tid, cdt, bt){
   this.breakTime = bt;
 }
 
+var errMsg = '';
 var taskArray = [];
 var tasks = 0;
 
 $(document).ready(function() {
   $('#newTask').click(function() {
-    var errMsg = '';
     //Grab the values from the form
     var taskName = $('input[name=task]').val();
     var mins = $('input[name=mins]').val();
@@ -27,6 +27,10 @@ $(document).ready(function() {
       errMsg = 'Please enter a valid number of minutes (1-999).';
     } else if(breakMins !== '' && typeof breakMins === 'number'){
       errMsg = 'Break minutes must be a valid number (1-999).';
+    } else if (mins>360){
+      errMsg = "Doing a single task for over 6 hours isn't very efficient!";
+    } else if (breakMins>120){
+      errMsg = "Try to take a break for less than two hours!";
     }
     if(errMsg!==''){
       $('#error-msg').remove();
@@ -37,10 +41,10 @@ $(document).ready(function() {
       var newTask = new task(tasks, inputTime, breakMins);
       taskArray.push(newTask);
       if(taskArray.length>1){
-        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock' + tasks +'">'+ mins +' Minutes </span></div>');
+        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">'+ taskName + '</div><br><div class="timer"><span id="clock' + tasks +'">'+ mins +' Minutes </span></div></div>');
       }
       else {
-        $('.taskbox-field').append('<div class="taskbox">'+ taskName + '<br><span id="clock' + tasks + '"></span></div>');
+        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">' + taskName + '</div><br><div class="timer"><span id="clock' + tasks + '"></span></div></div>');
         timeHandler(taskArray[0]);
       }
     }
@@ -51,6 +55,9 @@ $(document).ready(function() {
 
 
 function timeHandler(currtask){
+  if(errMsg!==''){
+    $('#error-msg').remove();
+  }
   var t = Date.now() + currtask.cdTime;
   $('#clock' + currtask.taskid).tinyTimer({ to: t,
                           onEnd: function(){
@@ -82,6 +89,9 @@ function countdownFinished(task){
 }
 
 function breakHandler(task){
+  if(errMsg!==''){
+    $('#error-msg').remove();
+  }
   $('.taskbox-field').prepend('<p id="break-msg"> Breaking for <span id="breakclock"></span></p>');
   var b = Date.now() + (task.breakTime*60000);
   $('#breakclock').tinyTimer({ to: b,
