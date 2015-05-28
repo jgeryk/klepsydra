@@ -41,11 +41,16 @@ $(document).ready(function() {
       var newTask = new task(tasks, inputTime, breakMins);
       taskArray.push(newTask);
       if(taskArray.length>1){
-        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">'+ taskName + '</div><br><div class="timer"><span id="clock' + tasks +'">'+ mins +' Minutes </span></div></div>');
+        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">'+ taskName + '</div><br><div class="timer"><div id="clock' + tasks +'">'+ mins +' Minutes </span></div></div>');
       }
       else {
-        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">' + taskName + '</div><br><div class="timer"><span id="clock' + tasks + '"></span></div></div>');
+        $('.taskbox-field').append('<div class="taskbox"><div class="taskname">' + taskName + '</div><br><div class="timer"><div id="clock' + tasks + '"></span></div></div>');
         timeHandler(taskArray[0]);
+      }
+      if(newTask.breakTime>0){
+        $('#clock' + tasks).after('<div class="break-info">Break: ' + newTask.breakTime +'</div>');
+      } else {
+        $('#clock' + tasks).after('<div class="break-info">No break!</div>');
       }
     }
   });

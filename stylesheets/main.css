@@ -45,6 +45,10 @@
   font-size: 400%;
 }
 
+.break-info {
+  font-size: 33%;
+}
+
 #task-input{
   width: 50vh;
 }
