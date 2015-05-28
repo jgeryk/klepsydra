@@ -10,9 +10,15 @@
 }
 
 .klepsydra-form-input{
+  outline: 0px;
+  border: 1px solid #70E2FF;
   border-radius: 6px;
   height: 3vh;
-  font-size: 70%;
+  font-size: 65%;
+}
+
+.time-input{
+  width: 15vh;
 }
 
 #description{
@@ -23,6 +29,10 @@
 }
 
 .taskbox-field{
+  text-align: center;
+}
+
+.message-field{
   text-align: center;
 }
 
@@ -56,6 +66,19 @@
   font-size: 33%;
 }
 
+#newTask{
+  outline: 0px;
+  border: 1px solid #70E2FF;
+  background-color:#33D6FF;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 80%;
+}
+
+#newTask:hover{
+  background-color:#70E2FF;
+}
+
 #task-input{
   width: 50vh;
 }
@@ -65,6 +88,7 @@
 }
 
 #footer{
+  color: #70E2FF;
   text-align: center;
   font-size: 80%;
 }
