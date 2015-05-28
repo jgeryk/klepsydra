@@ -44,6 +44,7 @@ $(document).ready(function() {
         $('.taskbox-field').append('<div class="taskbox"><div class="taskname">'+ taskName + '</div><br><div class="timer"><div id="clock' + tasks +'">'+ mins +' Minutes </span></div></div>');
       }
       else {
+        $('#description').fadeOut(3000);
         $('.taskbox-field').append('<div class="taskbox"><div class="taskname">' + taskName + '</div><br><div class="timer"><div id="clock' + tasks + '"></span></div></div>');
         timeHandler(taskArray[0]);
       }

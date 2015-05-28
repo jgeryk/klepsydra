@@ -15,6 +15,13 @@
   font-size: 70%;
 }
 
+#description{
+  font-weight: bold;
+  text-align: center;
+  font-size: 175%;
+  padding: 2vh 35vh 2vh 35vh;
+}
+
 .taskbox-field{
   text-align: center;
 }
