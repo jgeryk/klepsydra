@@ -6,10 +6,10 @@ function task(tid, cdt, bt){
   this.taskid = tid;
   this.cdTime = cdt;
   this.breakTime = bt;
-  this.isFinished = false;
 }
 
 var errMsg = '';
+//Array of task objects to organize the flow of the page
 var taskArray = [];
 var tasks = 0;
 var fadeOutMs = 1750;
@@ -43,6 +43,7 @@ $(document).ready(function() {
       inputTime = mins*60000;
       var newTask = new task(tasks, inputTime, breakMins);
       taskArray.push(newTask);
+      //Add the new taskbox to the DOM, start counter if first taskbox
       if(taskArray.length>1){
         $('.taskbox-field').append('<div class="taskbox"><div class="taskname">'+ taskName + '</div><br><div class="timer"><div id="clock' + tasks +'">'+ mins +' Minutes </div></div></div>');
       }
@@ -53,6 +54,7 @@ $(document).ready(function() {
           timeHandler(taskArray[0]);
         }
       }
+      //Add break information to new taskbox
       if(newTask.breakTime>0){
         $('#clock' + tasks).after('<div class="break-info">Break: ' + newTask.breakTime +' Minutes</div>');
       } else {
@@ -92,13 +94,11 @@ function timeHandler(currtask){
 }
 
 function countdownFinished(task){
-  // alert(taskArray.length);
   taskArray.shift();
   document.getElementById('bell').play();
   $('.taskbox:first-child').fadeOut(fadeOutMs, function(){
     $('.taskbox:first-child').remove();
   });
-  // setTimeout(function () {$('.taskbox:first-child').remove();}, fadeOutMs);
   if(taskArray.length>0){
     timeHandler(taskArray[0]);
   }
