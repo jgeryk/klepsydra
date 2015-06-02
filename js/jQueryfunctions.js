@@ -135,7 +135,7 @@ function breakHandler(task, $clockId){
                             $('#break-msg').fadeOut(fadeOutMs, function(){
                               $('#break-msg').remove();
                             });
-                            countdownFinished(task, clockId);
+                            countdownFinished(task, $clockId);
                           }});
 
 }
