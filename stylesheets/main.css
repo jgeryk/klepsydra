@@ -66,6 +66,10 @@
   font-size: 33%;
 }
 
+.complete {
+  font-size: 50%;
+}
+
 #newTask{
   outline: 0px;
   border: 1px solid #70E2FF;
@@ -73,6 +77,9 @@
   border-radius: 5px;
   font-weight: bold;
   font-size: 80%;
+  margin-left: 1vh;
+  height: 3.5vh;
+  width: 20vh;
 }
 
 #newTask:hover{
@@ -81,6 +88,11 @@
 
 #task-input{
   width: 50vh;
+}
+
+#break-clock{
+  font-weight: bold;
+  color: #33D6FF;
 }
 
 #break-msg{
